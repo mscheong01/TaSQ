@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+
+# Local environments and editors
+.env
+.venv/
+.idea/
+.vscode/
+.claude/
+.codex/
+.agents/
+.DS_Store
+
+# Generated experiment state
+/artifacts/
+/work/
+/datasets/
+**/outputs/
+**/logs/
+*.log
+*.trace
+*.nsys-rep
+
+# Downloaded RULER corpus cache
+/tasks/niah/niah_corpus_essays.txt

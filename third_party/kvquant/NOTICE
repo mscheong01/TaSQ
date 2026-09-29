@@ -1,0 +1,21 @@
+This directory contains third-party code redistributed under the Apache License 2.0.
+
+KVQuant
+  Copyright (c) 2024 SqueezeAILab and the KVQuant authors
+  https://github.com/SqueezeAILab/KVQuant
+  Licensed under the Apache License, Version 2.0 (see ./LICENSE).
+
+  Paper: "KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache
+  Quantization", Hooper et al., NeurIPS 2024. arXiv:2401.18079
+
+Files here are a trimmed and modified copy taken from the KVQuant subtree in
+https://github.com/DHdroid/NSNQuant. The retained code covers Fisher-statistic
+collection and coupled-VQ codebook fitting. Project-specific changes include:
+
+  * removal of components that are not used by the CQ or TaSQ pipelines;
+  * standalone entry points and paths for the repository's calibration workflow;
+  * calibration-corpus and Fisher-statistic handling used by the experiments; and
+  * TaSQ channel transforms, grouping metadata, and weighted codebook fitting.
+
+The files retain their original Apache License 2.0 terms. TaSQ-specific changes
+are distributed under the repository's Apache License 2.0.

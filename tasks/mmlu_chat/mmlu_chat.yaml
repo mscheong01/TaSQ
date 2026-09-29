@@ -1,0 +1,45 @@
+task: mmlu_chat
+# One task over all 57 subjects (the `all` config), so the table gets a single number without a
+# group yaml and 57 subject files.
+#
+# cais/mmlu, not upstream's hails/mmlu_no_train: that copy's `all` config cannot be loaded at all
+# -- datasets raises `Instruction "test" corresponds to no data!` before any task code runs, and
+# no verification_mode setting gets past it. Its per-SUBJECT configs are fine, which is why
+# upstream ships 57 files and a group; cais/mmlu's `all` loads cleanly and needs neither.
+# The extra auxiliary_train split cais/mmlu carries is simply unused here.
+dataset_path: cais/mmlu
+dataset_name: all
+# validation (1,531), as upstream mmlu_flan_cot_zeroshot uses -- test is 14,042 and this variant
+# GENERATES a chain of thought per item, which the loglikelihood variant does not.
+test_split: validation
+fewshot_split: dev
+output_type: generate_until
+num_fewshot: 0
+doc_to_text: "Q: {{question.strip()}}\n(A) {{choices[0]}} (B) {{choices[1]}} (C) {{choices[2]}} (D) {{choices[3]}}\nA: Let's think step by step."
+doc_to_target: "{{['(A)', '(B)', '(C)', '(D)'][answer]}}"
+process_results: !function utils.process_results
+generation_kwargs:
+  # "Q:" is the prompt's own turn marker; the rest are the EOS markers of the models served here.
+  # <|eot_id|> is upstream's omission -- without it Llama-3.1 runs to the token cap on every item.
+  # Note what is NOT here: "\n\n". A chat model reaches a blank line long before its conclusion,
+  # and stopping there is what scored 16 of BBH's 27 subtasks exactly 0.000 (see bbh_chat).
+  until:
+    - "Q:"
+    - "</s>"
+    - "<|im_end|>"
+    - "<|eot_id|>"
+  do_sample: false
+  temperature: 0.0
+  # A step-by-step answer to a 4-way question, with headroom. Not 32k: this table's models run
+  # thinking-off, and an unbounded budget here would cost more than the benchmark is worth.
+  # 512 was too tight and truncated the conclusion: on a 60-doc pilot (qwen3_4b, fp16) responses
+  # ran to 2,360 characters against a cap of roughly 2,048, and 16.7% of items ended with no
+  # answer marker at all while 11.7% yielded no letter. That is the bbh_chat failure in another
+  # guise -- the model knew the answer and the budget stopped it before it said so.
+  max_gen_toks: 1024
+metric_list:
+  - metric: exact_match
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0

@@ -1,0 +1,28 @@
+tag:
+  - math_word_problems
+task: math500
+dataset_path: HuggingFaceH4/MATH-500
+process_docs: !function utils.process_docs
+output_type: generate_until
+test_split: test
+doc_to_text: !function utils.doc_to_text
+doc_to_target: "{{answer if few_shot is undefined else solution}}"
+process_results: !function utils.process_results
+num_fewshot: 4
+fewshot_config:
+  sampler: first_n
+  samples: !function utils.list_fewshot_samples
+generation_kwargs:
+  until:
+    - "Problem:"
+  do_sample: false
+  temperature: 0
+  max_gen_toks: 1024
+metric_list:
+  - metric: exact_match
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 3.0
+dataset_kwargs:
+  trust_remote_code: true

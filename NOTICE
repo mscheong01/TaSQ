@@ -1,0 +1,29 @@
+TaSQ
+Copyright 2026 TaSQ authors
+
+This distribution includes modified third-party software:
+
+SGLang
+  Copyright 2023-2026 SGLang Team
+  https://github.com/sgl-project/sglang
+  Licensed under the Apache License, Version 2.0.
+
+  The source under python/ is an SGLang fork adapted with KV cache storage,
+  quantization, and serving kernels for TaSQ and the evaluated baselines. The
+  bundled version metadata identifies upstream revision 0bdb71d33.
+
+KVQuant
+  Copyright 2024 SqueezeAILab and the KVQuant authors
+  https://github.com/SqueezeAILab/KVQuant
+  Licensed under the Apache License, Version 2.0.
+
+  The adapted subset is under third_party/kvquant/. See its NOTICE and LICENSE
+  files for details.
+
+NSNQuant
+  Copyright 2026 Donghyun Son
+  https://github.com/DHdroid/NSNQuant
+  Licensed under the MIT License.
+
+  The released one- and two-bit codebooks are redistributed under assets/nsn/.
+  See assets/nsn/README.md for source paths and checksums.

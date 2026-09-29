@@ -1,0 +1,23 @@
+# Chat-template-safe BBH. Identical to upstream cot_fewshot except:
+#   until      -- drops "\n\n" and "Q"; a markdown reply hits a blank line long before its
+#                 conclusion, which truncated 16/27 subtasks to empty on Qwen3-8B
+#   scoring    -- process_results (utils.py) instead of the regex filter, so "**Yes**" and
+#                 "Yes" compare equal
+dataset_path: SaylorTwift/bbh
+output_type: generate_until
+test_split: test
+doc_to_target: "{{target}}"
+process_results: !function utils.process_results
+metric_list:
+  - metric: exact_match
+    aggregation: mean
+    higher_is_better: true
+generation_kwargs:
+  max_gen_toks: 1024
+  until:
+    - "</s>"
+  do_sample: false
+  temperature: 0.0
+num_fewshot: 3
+metadata:
+  version: 1.0

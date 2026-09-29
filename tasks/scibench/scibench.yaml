@@ -1,0 +1,33 @@
+task: scibench
+dataset_path: xw27/scibench
+# The dataset ships a single `train` split of all 692 problems; SciBench has no train/test
+# division -- every problem is an evaluation item.
+test_split: train
+output_type: generate_until
+process_docs: !function utils.process_docs
+doc_to_text: !function utils.doc_to_text
+doc_to_target: "{{answer_number}}"
+process_results: !function utils.process_results
+num_fewshot: 0
+generation_kwargs:
+  # Mirrors aime24's list, for the reason bbh_chat's header records: a stop string chosen for
+  # completion-style decoding truncates a chat reply long before its conclusion. "Problem:" is
+  # the prompt's own section header, and the rest are the EOS markers of the models served here.
+  until:
+    - "Problem:"
+    - "</s>"
+    - "<|im_end|>"
+    - "<|eot_id|>"
+  do_sample: false
+  temperature: 0.0
+  # 32768 like aime24. The reasoning driver overrides this from REASON_MAX_GEN anyway
+  # (run_sweep.sh passes --max_gen_toks), but a thinking model spends more than 2048 tokens
+  # inside <think> alone, so the yaml default must not be the one that truncates.
+  max_gen_toks: 32768
+repeats: 1
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0

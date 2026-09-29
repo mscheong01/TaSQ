@@ -1,0 +1,35 @@
+group: bbh_cot_fewshot_chat
+task:
+  - bbh_cot_fewshot_boolean_expressions_chat
+  - bbh_cot_fewshot_causal_judgement_chat
+  - bbh_cot_fewshot_date_understanding_chat
+  - bbh_cot_fewshot_disambiguation_qa_chat
+  - bbh_cot_fewshot_dyck_languages_chat
+  - bbh_cot_fewshot_formal_fallacies_chat
+  - bbh_cot_fewshot_geometric_shapes_chat
+  - bbh_cot_fewshot_hyperbaton_chat
+  - bbh_cot_fewshot_logical_deduction_five_objects_chat
+  - bbh_cot_fewshot_logical_deduction_seven_objects_chat
+  - bbh_cot_fewshot_logical_deduction_three_objects_chat
+  - bbh_cot_fewshot_movie_recommendation_chat
+  - bbh_cot_fewshot_multistep_arithmetic_two_chat
+  - bbh_cot_fewshot_navigate_chat
+  - bbh_cot_fewshot_object_counting_chat
+  - bbh_cot_fewshot_penguins_in_a_table_chat
+  - bbh_cot_fewshot_reasoning_about_colored_objects_chat
+  - bbh_cot_fewshot_ruin_names_chat
+  - bbh_cot_fewshot_salient_translation_error_detection_chat
+  - bbh_cot_fewshot_snarks_chat
+  - bbh_cot_fewshot_sports_understanding_chat
+  - bbh_cot_fewshot_temporal_sequences_chat
+  - bbh_cot_fewshot_tracking_shuffled_objects_five_objects_chat
+  - bbh_cot_fewshot_tracking_shuffled_objects_seven_objects_chat
+  - bbh_cot_fewshot_tracking_shuffled_objects_three_objects_chat
+  - bbh_cot_fewshot_web_of_lies_chat
+  - bbh_cot_fewshot_word_sorting_chat
+aggregate_metric_list:
+  - metric: exact_match
+    aggregation: mean
+    weight_by_size: false
+metadata:
+  version: 1.0

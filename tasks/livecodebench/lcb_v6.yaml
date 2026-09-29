@@ -1,0 +1,30 @@
+task: lcb_v6
+# release_v6 == test.jsonl .. test6.jsonl (1055 problems), per the upstream loading script's
+# ALLOWED_FILES table. The script itself cannot be used -- current `datasets` refuses loading
+# scripts -- so the raw jsonl are read directly from the hub.
+dataset_path: json
+dataset_kwargs:
+  data_files:
+    test:
+      - https://huggingface.co/datasets/livecodebench/code_generation_lite/resolve/main/test.jsonl
+      - https://huggingface.co/datasets/livecodebench/code_generation_lite/resolve/main/test2.jsonl
+      - https://huggingface.co/datasets/livecodebench/code_generation_lite/resolve/main/test3.jsonl
+      - https://huggingface.co/datasets/livecodebench/code_generation_lite/resolve/main/test4.jsonl
+      - https://huggingface.co/datasets/livecodebench/code_generation_lite/resolve/main/test5.jsonl
+      - https://huggingface.co/datasets/livecodebench/code_generation_lite/resolve/main/test6.jsonl
+test_split: test
+output_type: generate_until
+doc_to_text: !function utils.doc_to_text
+doc_to_target: !function utils.doc_to_target
+process_results: !function utils.process_results
+num_fewshot: 0
+generation_kwargs:
+  do_sample: false
+  max_gen_toks: 32768
+  until: []
+metric_list:
+  - metric: pass@1
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0
