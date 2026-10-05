@@ -4,7 +4,7 @@
 
 ### Tailoring the Quantization Space for 1-Bit KV Cache Compression
 
-[Overview](#overview) · [Quick Start](#quick-start) · [Benchmarks and Methods](#benchmarks-and-methods) · [Repository Layout](#repository-layout)
+[Project Page](https://dhdroid.github.io/TaSQ/) · [Overview](#overview) · [Quick Start](#quick-start) · [Benchmarks and Methods](#benchmarks-and-methods) · [Repository Layout](#repository-layout)
 
 </div>
 
